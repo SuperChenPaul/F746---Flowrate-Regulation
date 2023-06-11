@@ -7,29 +7,30 @@
 
 
 ThreadLvgl threadLvgl(30);
-// Initialize a pins to perform analog input and digital output functions
+
+// Initialize pins for Analog Input (Sensor) and PwM Output (Pump)
 AnalogIn   capteur1(A0), capteur2(A1);
 PwmOut pompe1(D11), pompe2(D3);
+
+
 double t;
 int i = 0;
-float valcap1, valcap2;
+float valuecap1, valuecap2; // Stock sensor value
 short int limite;
+float puissance=0;
 
 
 
 int main() {
 
-
+    pompe1.period_us(50);
+    pompe2.period_us(50);
 
     threadLvgl.lock();
 
 
 
 
-    pompe1.period_us(50);
-    pompe2.period_us(50);
-    pompe1.write(1.00f);
-    pompe2.write(1.00f);
 
 
 
@@ -73,22 +74,6 @@ int main() {
     lv_obj_add_style(line2, &style_line, 0);
  
 
-    /*Create a slider*/
-    lv_obj_t * slider = lv_slider_create(lv_scr_act());
-    lv_obj_align(slider, LV_ALIGN_CENTER, -20, 35);
-    lv_obj_set_size(slider,8,80);
-    lv_slider_set_range(slider,0,20);
-    lv_obj_add_style(slider,&style_indicator,LV_PART_MAIN);
-    lv_obj_add_style(slider,&style_indicator,LV_PART_INDICATOR);
-
-    lv_obj_t * slider2 = lv_slider_create(lv_scr_act());
-    lv_obj_align(slider2, LV_ALIGN_CENTER, 110, 35);
-    lv_obj_set_size(slider2,8,80);
-    lv_slider_set_range(slider2,0,20);
-    lv_obj_add_style(slider2,&style_indicator,LV_PART_MAIN);
-    lv_obj_add_style(slider2,&style_indicator,LV_PART_INDICATOR);
-
-
         lv_obj_t * NiveauCapteur1;
         NiveauCapteur1 = lv_line_create(lv_scr_act());
 
@@ -99,6 +84,25 @@ int main() {
         lv_obj_t * LineCommandeLim;
         LineCommandeLim = lv_line_create(lv_scr_act());
         lv_obj_add_style(NiveauCapteur2, &style_eau, 0);
+
+            
+        /*Create a slider*/
+        lv_obj_t * slider = lv_slider_create(lv_scr_act());
+        lv_obj_align(slider, LV_ALIGN_CENTER, -20, 35);
+        lv_obj_set_size(slider,8,80);
+        lv_slider_set_range(slider,0,80);
+        lv_obj_add_style(slider,&style_indicator,LV_PART_MAIN);
+        lv_obj_add_style(slider,&style_indicator,LV_PART_INDICATOR);
+
+
+        /*Create the slider to modify the power of the pump*/
+        lv_obj_t * sliderPuissancePompe = lv_slider_create(lv_scr_act());
+        lv_obj_align(sliderPuissancePompe, LV_ALIGN_LEFT_MID, 20, 50);
+        lv_obj_set_size(sliderPuissancePompe,100,15);
+        lv_slider_set_range(sliderPuissancePompe,0,100);
+
+
+
         
     threadLvgl.unlock();
 
@@ -109,29 +113,49 @@ int main() {
 
         ThisThread::sleep_for(100ms);
 
+
+        valuecap1=246-((1-capteur1.read())*100);
+        valuecap2=246-((1-capteur2.read())*100);
+        limite =210-(lv_slider_get_value(slider));
+
         threadLvgl.lock();
    
 
-        valcap1=246-((1-capteur1.read())*100);
-        lv_point_t line_eau1[]= {{260,(short int)valcap1},{260,246}};
+
+        lv_point_t line_eau1[]= {{260,(short int)valuecap1},{260,246}};
         lv_line_set_points(NiveauCapteur1, line_eau1, 2);     /*Set the points*/
         
-        valcap2=246-((1-capteur2.read())*100);
-        lv_point_t line_eau2[]= {{390,(short int)valcap2},{390,246}};
+
+        lv_point_t line_eau2[]= {{390,(short int)valuecap2},{390,246}};
         lv_line_set_points(NiveauCapteur2, line_eau2, 2);     /*Set the points*/
         
-        
-
-        limite =200-(lv_slider_get_value(slider)*2);
-        lv_point_t line_CommandeLim[]= {{70,limite},{150,limite}};
+        lv_point_t line_CommandeLim[]= {{220,limite},{300,limite}};
         lv_line_set_points(LineCommandeLim, line_CommandeLim, 2);     /*Set the points*/
         lv_obj_add_style(LineCommandeLim, &style_limite, 0);
 
 
-
         threadLvgl.unlock();
 
+        pompe1.write(lv_slider_get_value(sliderPuissancePompe)/100);
 
+
+        pompe2.write(1.00f);
+        if (valuecap1>(0.007*(lv_slider_get_value(slider))+0.1)){
+        puissance=puissance-0.1;
+        pompe2.write(puissance);
+        }
+        else if(valuecap1<(0.007*(lv_slider_get_value(slider))-0.1)){
+        puissance--;
+        puissance=puissance+0.1;
+        pompe2.write(puissance);
+
+        }
+        else if(((valuecap1>=(0.007*(lv_slider_get_value(slider))+0.1))) && ((valuecap1<=(0.007*(lv_slider_get_value(slider))-0.1)))){
+
+        }
+
+
+  
             printf("\nValeur Capteur 1 : %f\n", capteur1.read());
             printf("\nValeur Capteur 2 : %f\n", capteur2.read());
             printf("\nMachin :%d\n",lv_slider_get_value(slider));
