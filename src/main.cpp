@@ -20,7 +20,7 @@ float limitecommande;
 
 int main()
 {
-
+    lv_obj_clear_flag(lv_scr_act(),LV_OBJ_FLAG_SCROLLABLE);
     pompe1.period_us(50);
     pompe2.period_us(50);
 
@@ -42,11 +42,6 @@ int main()
     lv_style_set_line_color(&style_eau, lv_palette_main(LV_PALETTE_BLUE));
     lv_style_set_line_rounded(&style_eau, false);
 
-    static lv_style_t style_limite;
-    lv_style_init(&style_limite);
-    lv_style_set_line_width(&style_limite, 3);
-    lv_style_set_line_color(&style_limite, lv_palette_main(LV_PALETTE_RED));
-
     static lv_style_t style_indicator;
     lv_style_init(&style_indicator);
     lv_style_set_bg_opa(&style_indicator, 0);
@@ -65,35 +60,42 @@ int main()
 
     lv_obj_t *NiveauCapteur1;
     NiveauCapteur1 = lv_line_create(lv_scr_act());
+    lv_obj_add_style(NiveauCapteur1, &style_eau, 0);
 
     lv_obj_t *NiveauCapteur2;
     NiveauCapteur2 = lv_line_create(lv_scr_act());
-    lv_obj_add_style(NiveauCapteur1, &style_eau, 0);
-
-    lv_obj_t *LineCommandeLim;
-    LineCommandeLim = lv_line_create(lv_scr_act());
     lv_obj_add_style(NiveauCapteur2, &style_eau, 0);
+
 
     /*Create a slider*/
     lv_obj_t *slider = lv_slider_create(lv_scr_act());
     lv_obj_align(slider, LV_ALIGN_CENTER, -20, 25);
     lv_obj_set_size(slider, 8, 65);
-    lv_slider_set_range(slider, 255, 610);
+    lv_slider_set_range(slider, 255, 590);
     lv_obj_add_style(slider, &style_indicator, LV_PART_MAIN);
     lv_obj_add_style(slider, &style_indicator, LV_PART_INDICATOR);
 
     /*Create the slider to modify the power of the pump*/
+
     lv_obj_t *sliderPuissancePompe = lv_slider_create(lv_scr_act());
-    lv_obj_align(sliderPuissancePompe, LV_ALIGN_LEFT_MID, 20, 50);
+    lv_obj_align(sliderPuissancePompe, LV_ALIGN_LEFT_MID, 40, 20);
     lv_obj_set_size(sliderPuissancePompe, 100, 15);
     lv_slider_set_range(sliderPuissancePompe, 0, 100);
+
+    static lv_obj_t * sliderPuissancePompe_label = lv_label_create(lv_scr_act());
+    lv_obj_align_to(sliderPuissancePompe_label,sliderPuissancePompe, LV_ALIGN_CENTER, 0, 20);
+    
+
+    static lv_obj_t * slider_function_name = lv_label_create(lv_scr_act());
+    lv_obj_align_to(slider_function_name,sliderPuissancePompe, LV_ALIGN_CENTER, -40, -40);
+    lv_label_set_text(slider_function_name,"Reglage puissance \nde la pompe");
+
+
 
     threadLvgl.unlock();
 
     static lv_point_t line_eau1[] = {{260, /*(short int)valuecap1*/ 0}, {260, 246}};
     static lv_point_t line_eau2[] = {{390, /*(short int)valuecap2*/ 0}, {390, 246}};
-    static lv_point_t line_CommandeLim[] = {{220, limite}, {300, limite}};
-    lv_obj_add_style(LineCommandeLim, &style_limite, 0);
 
     while (1)
     {
@@ -103,7 +105,7 @@ int main()
 
         valuecap1 = capteur1.read();
         valuecap2 = capteur2.read();
-        printf("cap1 : %f\n", valuecap1);
+
 
         threadLvgl.lock();
 
@@ -115,28 +117,27 @@ int main()
         line_eau1[0].y = 246 - ((1 - valuecap1) * 200);
         lv_line_set_points(NiveauCapteur1, line_eau1, 2); /*Set the points*/
 
-        line_eau2[0].y = 246 - ((1 - valuecap2) * 100);
+        line_eau2[0].y = 246 - ((1 - valuecap2) * 200);
         lv_line_set_points(NiveauCapteur2, line_eau2, 2); /*Set the points*/
 
-        line_CommandeLim[0].y = limite;
-        line_CommandeLim[1].y = limite;
-        lv_line_set_points(LineCommandeLim, line_CommandeLim, 2); /*Set the points*/
-
+       
         pompe2.write(puissancepompe1);
+        char buf[8];
+        lv_snprintf(buf, sizeof(buf), "%d%%", (int)lv_slider_get_value(sliderPuissancePompe));
+        lv_label_set_text(sliderPuissancePompe_label, buf);
+
 
         if ((valuecap1 < (limitecommande)-0.005) & (puissance >= 0))
         {
             puissance = puissance - 0.05;
             pompe1.write(puissance);
-//            printf("PUISSANCE : %f %f\n", puissance, valuecap1);
         }
         else if ((valuecap1 > (limitecommande) + 0.005) & (puissance <= 1))
         {
             puissance = puissance + 0.05;
-            pompe1.write(puissance);
-//            printf("puissance : %f %f\n", puissance, valuecap1);
+            pompe1.write(puissance);  
         }
-        else if (valuecap1 < 0.370)
+        else if ((valuecap1 < 0.385) | (valuecap2 <0.385))
         {
             pompe1.write(0.0f);
             pompe2.write(0.0f);
