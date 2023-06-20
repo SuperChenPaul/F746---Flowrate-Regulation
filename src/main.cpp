@@ -1,8 +1,8 @@
 #include <mbed.h>
 #include <threadLvgl.h>
-
 #include "demos/lv_demos.h"
 #include <cstdio>
+#include <cmath>
 
 ThreadLvgl threadLvgl(30);
 
@@ -10,13 +10,11 @@ ThreadLvgl threadLvgl(30);
 AnalogIn capteur1(A0), capteur2(A1);
 PwmOut pompe1(D11), pompe2(D3);
 
-double t;
-int i = 0;
 float valuecap1, valuecap2; // Stock sensor value
-short int limite = 0;
-float puissance = 0;
-float val_puissancepompe1 = 0;
-float limitecommande;
+float puissance = 0; //Initalize power of second pump
+float val_puissancepompe1 = 0; // Stock value power of pump 1
+float limitecommande; // Stock value of the level limit 
+
 
 int main()
 {
@@ -128,6 +126,7 @@ int main()
 
         threadLvgl.lock();
 
+
         /* Lecture valeur slider pussance pompe et affichage en %*/
         val_puissancepompe1 = (lv_slider_get_value(sliderPuissancePompe) / 100.0);
         pompe1.write(val_puissancepompe1);
@@ -136,21 +135,22 @@ int main()
         lv_label_set_text(PuissancePompe1_label, buf);
 
 
-
+        /* Lecture valeur du slider de niveau */
         limitecommande = (1 - (lv_slider_get_value(sliderNiveau) / 1000.0));
 
 
 
 
-        if ((valuecap1 < (limitecommande)-0.005) & (puissance >= 0))
+        /* Gestion automatique de la puissance de la seconde pompe*/
+        if ((valuecap1 < (limitecommande)-0.005) & (puissance >= 0.1))
         {
-            puissance = puissance - 0.05;
-            pompe1.write(puissance);
+            puissance = puissance - 0.1;
+            pompe2.write(puissance);
         }
         else if ((valuecap1 > (limitecommande) + 0.005) & (puissance <= 1))
         {
-            puissance = puissance + 0.05;
-            pompe1.write(puissance);  
+            puissance = puissance + 0.1;
+            pompe2.write(puissance);  
         }
         else if ((valuecap1 < 0.385) | (valuecap2 <0.385))
         {
@@ -162,7 +162,10 @@ int main()
         else
         {
         }
-        lv_snprintf(buf, sizeof(buf), "%d%%", (int)puissance*100);
+
+
+        /*Affichage de la valeur en % de la puissance de la seconde pompe*/
+        lv_snprintf(buf, sizeof(buf), "%.0f%%", abs((float)puissance*100));
         lv_label_set_text(PuissancePompe2_label, buf);
 
 

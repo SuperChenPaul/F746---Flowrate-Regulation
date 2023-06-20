@@ -1,0 +1,372 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 1N400X
+D 1A General Purpose Rectifier Diode, DO-41
+K diode
+F http://www.vishay.com/docs/88503/1n4001.pdf
+$ENDCMP
+#
+$CMP 1N4148
+D 100V 0.15A standard switching diode, DO-35
+K diode
+F https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf
+$ENDCMP
+#
+$CMP 74LS00
+D quad 2-input NAND gate
+K TTL nand 2-input
+F http://www.ti.com/lit/gpn/sn74ls00
+$ENDCMP
+#
+$CMP 74LS02
+D quad 2-input NOR gate
+K TTL Nor2
+F http://www.ti.com/lit/gpn/sn74ls02
+$ENDCMP
+#
+$CMP 74LS04
+D Hex Inverter
+K TTL not inv
+F http://www.ti.com/lit/gpn/sn74LS04
+$ENDCMP
+#
+$CMP 74LS08
+D Quad And2
+K TTL and2
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74LS14
+D Schmitt trigger hex inverter
+K Schmitt trigger inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
+$CMP 74LS32
+D Quad 2-input OR
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74LS74
+D Dual D Flip-flop, Set & Reset
+K TTL DFF
+F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74LS86
+D Quad 2-input XOR
+K TTL XOR2
+F 74xx/74ls86.pdf
+$ENDCMP
+#
+$CMP Autocom2
+D Autocom HE14 connector, single row, 01x02
+K connector autocom
+F ~
+$ENDCMP
+#
+$CMP Autocom3
+D Autocom HE14 connector, single row, 01x03
+K connector autocom
+F ~
+$ENDCMP
+#
+$CMP Autocom4
+D Autocom HE14 connector, single row, 01x04
+K connector autocom
+F ~
+$ENDCMP
+#
+$CMP Autocom5
+D Autocom HE14 connector, single row, 01x05
+K connector autocom
+F ~
+$ENDCMP
+#
+$CMP BUZ11
+D 30A Id, 50V Vds, N-Channel Power MOSFET, TO-220
+K N-Channel Power MOSFET transistor
+F http://www.fairchildsemi.com/ds/BU/BUZ11.pdf
+$ENDCMP
+#
+$CMP C
+D Unpolarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP CNY70
+D Reflective Optical Sensor with Transistor Output
+K Reflective Optical Sensor Opto
+F https://www.vishay.com/docs/83751/cny70.pdf
+$ENDCMP
+#
+$CMP Coax
+D coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, ...)
+K BNC SMA SMB SMC coaxial connector CINCH RCA
+F  ~
+$ENDCMP
+#
+$CMP Cp
+D Polarized capacitor, US symbol
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP HE10_02x05
+D HE10_02x05
+K connector HE10
+F ~
+$ENDCMP
+#
+$CMP HE10_02x08
+D HE10_02x08
+K connector HE10
+F ~
+$ENDCMP
+#
+$CMP HE10_02x10
+D HE10_02x10
+K connector HE10
+F ~
+$ENDCMP
+#
+$CMP IRF540N
+D 33A Id, 100V Vds, HEXFET N-Channel MOSFET, TO-220
+K HEXFET N-Channel MOSFET
+F http://www.irf.com/product-info/datasheets/data/irf540n.pdf
+$ENDCMP
+#
+$CMP IRF740
+D 10A Id, 400V Vds, N-Channel Power MOSFET, 500mOhm Rds, TO-220AB
+K N Channel
+F http://www.vishay.com/docs/91054/91054.pdf
+$ENDCMP
+#
+$CMP IRL510
+D 5.6A Id, 100V Vds, N-Channel Power MOSFET, TO-220
+K N-Channel Power MOSFET
+F https://www.vishay.com/docs/91297/sihl510.pdf
+$ENDCMP
+#
+$CMP Jumper
+D Jumper
+K jumper
+F ~
+$ENDCMP
+#
+$CMP LED3mm_green
+D Light emitting diode 3mm green
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LED3mm_orange
+D Light emitting diode 3mm orange
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LED3mm_red
+D Light emitting diode 3mm red
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LED5mm_green
+D Light emitting diode 5mm green
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LED5mm_orange
+D Light emitting diode 5mm orange
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LED5mm_red
+D Light emitting diode 5mm
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LM311
+D Voltage Comparator, DIP-8/SOIC-8/SSOP-8
+K comparator
+F http://www.ti.com/lit/ds/symlink/lm311.pdf
+$ENDCMP
+#
+$CMP LM324
+D Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14
+K quad opamp
+F http://www.ti.com/lit/ds/symlink/lm2902-n.pdf
+$ENDCMP
+#
+$CMP LM339
+D Quad Differential Comparators, DIP-14/SOIC-14/SSOP-14
+K quad comparator comparateur
+F http://www.ti.com/lit/ds/symlink/lm339.pdf
+$ENDCMP
+#
+$CMP LM741
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm741.pdf
+$ENDCMP
+#
+$CMP LM7805_TO220
+D Positive 1A 35V Linear Regulator, Fixed Output 5V, TO-220
+K Voltage Regulator 1A Positive
+F http://www.fairchildsemi.com/ds/LM/LM7805.pdf
+$ENDCMP
+#
+$CMP LM7809_TO220
+D Positive 1A 35V Linear Regulator, Fixed Output 9V, TO-220
+K Voltage Regulator 1A Positive
+F http://www.fairchildsemi.com/ds/LM/LM7805.pdf
+$ENDCMP
+#
+$CMP LM7812_TO220
+D Positive 1A 35V Linear Regulator, Fixed Output 12V, TO-220
+K Voltage Regulator 1A Positive
+F http://www.fairchildsemi.com/ds/LM/LM7805.pdf
+$ENDCMP
+#
+$CMP LM7815_TO220
+D Positive 1A 35V Linear Regulator, Fixed Output 15V, TO-220
+K Voltage Regulator 1A Positive
+F http://www.fairchildsemi.com/ds/LM/LM7805.pdf
+$ENDCMP
+#
+$CMP LM7824_TO220
+D Positive 1A 35V Linear Regulator, Fixed Output 24V, TO-220
+K Voltage Regulator 1A Positive
+F http://www.fairchildsemi.com/ds/LM/LM7805.pdf
+$ENDCMP
+#
+$CMP MCP602
+D Dual 2.7V to 6.0V Single Supply CMOS Op Amps, DIP-8/SOIC-8/TSSOP-8
+K dual opamp
+F http://ww1.microchip.com/downloads/en/DeviceDoc/21314g.pdf
+$ENDCMP
+#
+$CMP MCP604
+D Quad 2.7V to 6.0V Single Supply CMOS Op Amps, DIP-14/SOIC-14/TSSOP-14
+K quad opamp
+F http://ww1.microchip.com/downloads/en/DeviceDoc/21314g.pdf
+$ENDCMP
+#
+$CMP Mouting_Screw_3mm
+D 3mm mouting screw
+K screw
+F ~
+$ENDCMP
+#
+$CMP Omnimate2
+D Connector BL/SL 5.08, single row, 01x02, power supply connector
+K connector
+F ~
+$ENDCMP
+#
+$CMP Omnimate4
+D Connector BL/SL 5.08, single row, 01x04, motors (x2) connector
+K connector
+F ~
+$ENDCMP
+#
+$CMP PIC18F4550
+D 24K Flash, 2K SRAM, 256 EEPROM, USB, nanoWatt XLP, DIP40
+K Flash-Based 8-Bit Microcontroller XLP
+F http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf
+$ENDCMP
+#
+$CMP R
+D Resistor 1/4W
+K R res resistor
+F ~
+$ENDCMP
+#
+$CMP R_US
+D Resistor, US symbol
+K R res resistor
+F ~
+$ENDCMP
+#
+$CMP Rpot
+D Potentiometer
+K resistor variable
+F ~
+$ENDCMP
+#
+$CMP SW_DIP_x02
+D 2x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol
+K dip switch
+F ~
+$ENDCMP
+#
+$CMP SW_DIP_x04
+D 4x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol
+K dip switch
+F ~
+$ENDCMP
+#
+$CMP SW_DIP_x08
+D 8x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol
+K dip switch
+F ~
+$ENDCMP
+#
+$CMP SW_Push_blue
+D Push button switch blue
+K switch normally-open pushbutton push-button
+F ~
+$ENDCMP
+#
+$CMP SW_Push_green
+D Push button switch green
+K switch normally-open pushbutton push-button
+F ~
+$ENDCMP
+#
+$CMP SW_Push_red
+D Push button switch red
+K switch normally-open pushbutton push-button
+F ~
+$ENDCMP
+#
+$CMP TL081
+D Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/tl081.pdf
+$ENDCMP
+#
+$CMP TL082
+D Dual Operational Amplifiers, DIP-8/SOIC-8/TSSOP-8/VSSOP-8
+K dual opamp
+$ENDCMP
+#
+$CMP TL084
+D Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14
+K quad opamp
+F http://www.ti.com/lit/ds/symlink/lm2902-n.pdf
+$ENDCMP
+#
+$CMP UF304
+D Fast Diode, DO-201AD
+K diode
+$ENDCMP
+#
+$CMP UF540X
+D Fast Diode, DO-201AD
+K diode
+F https://www.vishay.com/docs/88756/uf5400.pdf
+$ENDCMP
+#
+$CMP Zener
+D Zener Diode
+K zener diode
+$ENDCMP
+#
+#End Doc Library
