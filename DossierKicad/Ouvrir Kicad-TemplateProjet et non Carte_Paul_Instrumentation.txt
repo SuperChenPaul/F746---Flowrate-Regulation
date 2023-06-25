@@ -1,0 +1,1 @@
+Ouvrir Kicad-Template-Projet et non Carte_Paul_Instrumentation
